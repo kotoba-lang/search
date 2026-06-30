@@ -1,10 +1,12 @@
 # search
 
-Portable CLJC search workspace model for `search.gftd.ai`.
+[![CI](https://github.com/kotoba-lang/search/actions/workflows/ci.yml/badge.svg)](https://github.com/kotoba-lang/search/actions/workflows/ci.yml)
 
-The core is a small EDN index: documents, tokenization, field weights, and
-deterministic scoring. It is intentionally host-neutral; a browser, Worker, or
-kotoba-backed service can replace storage without changing query semantics.
+Portable CLJC model for kotoba-lang/search.
+
+Pages editor: https://kotoba-lang.github.io/search/
+
+The Pages UI is local to kotoba-lang and does not redirect to external hosts.
 
 ## Test
 
