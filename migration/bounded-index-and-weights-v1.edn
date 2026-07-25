@@ -1,0 +1,39 @@
+{:schema "kotoba-search-migration/v1"
+ :profile :search/bounded-index-and-weights-v1
+ :legacy {:source "src/search/model.cljc" :status :retained-general-oracle}
+ :canonical {:kernel-and-conformance "src/search/bounded_index.kotoba"}
+ :domain
+ {:functions [:make-doc :empty-index :add-document :doc-count :has-doc?
+              :doc-title-or :field-weight-or]
+  :scope "the index STRUCTURE -- the name-keyed document registry (doc-id ->
+          {:title :body} record) and the closed field-weight table
+          (:title 4 / :tags 3 / :body 1)."
+  :representation "[:map :string [:record :search/doc [[:title :string]
+                   [:body :string]]]] canonical bounded typed-map for the
+                   registry (record VALUE), plus closed keyword membership
+                   for the field-weight vocabulary."}
+ :excluded [:search.model/tokenize :search.model/score-doc :search.model/search
+            :search.model/term-count :search.validate]
+ :exclusion-reason "tokenize is a re-seq character-class tokenizer over a-z0-9
+                    + Japanese Unicode ranges; score-doc/search/term-count
+                    build on it. These need a per-code-point classification
+                    string primitive kotoba-lang/compiler does not yet expose
+                    -- its string ABI is UTF-8 byte-offset based (string-
+                    substring / string-contains? / string-byte-length), with
+                    no code-point-at / regex op -- so the search machinery
+                    stays the CLJC oracle. Only the index structure is bounded."
+ :compiler-findings
+ {:document-star-names-are-reserved
+  {:description "document-count/has-document? etc. collide with the built-in document-* typed-value operations (document-count is one), so the kernel uses doc-count/has-doc?/doc-title-or. Working as designed."}
+  :equality-types-as-i64
+  {:description "= types as :i64, so field-weight-or returns the weight directly and a :bool leaf must be explicit true/false."}}
+ :verification
+ {:hand-verified-cases
+  "main replays search.model-test's seed-index shape: add \"slides\"
+   (title \"GFTD Slides\") and \"sheets\", assert count 2, membership, title
+   read-back, missing-doc fallback, and the closed field weights
+   (:title 4, :body 1, :unknown -> fallback). Returns 42 iff all hold."
+  :web {:main 42 :required-capabilities []}
+  :wasm {:main 42}
+  :required-capabilities []}
+ :cutover {:bounded-profile-authorized true :general-cljc-oracle-retained true}}
