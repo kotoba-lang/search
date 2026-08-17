@@ -4,6 +4,11 @@
 
 Portable CLJC model for kotoba-lang/search.
 
+`search.model` scores a small in-memory document map (O(corpus)).
+`search.postings` is the :search serving plane: term → sorted doc-ids,
+AND by intersection, rebuildable from documents or datoms. Query cost is
+posting length, not corpus size.
+
 Pages editor: https://kotoba-lang.github.io/search/
 
 The Pages UI is local to kotoba-lang and does not redirect to external hosts.
