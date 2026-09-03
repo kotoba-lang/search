@@ -28,10 +28,27 @@
 (defn remove-document [idx id]
   (update idx :search/docs dissoc id))
 
+;; Japanese (and Chinese/Korean han) text has no spaces: the char-class
+;; tokenizer keeps a whole CJK run as one token, which never intersects a
+;; short query under posting-AND ('理事会' vs '欧州連合理事会'). Overlapping
+;; bigrams are the minimal segmentation that keeps retrieve O(df) without
+;; a dictionary/ICU dependency. The ー long-vowel mark stays inside runs
+;; so katakana terms ('ミツトヨ') segment consistently.
+(def ^:private cjk-run-re #"[\u3040-\u30ff\u3400-\u9fff\u3005]+")
+
+(defn- cjk-bigrams [run]
+  (if (= 1 (count run))
+    [run]
+    (map #(subs run % (+ % 2)) (range (dec (count run))))))
+
 (defn tokenize [s]
   (->> (str/lower-case (str s))
        (re-seq #"[a-z0-9\u3040-\u30ff\u3400-\u9fff]+")
        (remove str/blank?)
+       (mapcat (fn [token]
+                 (if (re-seq cjk-run-re token)
+                   (mapcat cjk-bigrams (re-seq cjk-run-re token))
+                   [token])))
        vec))
 
 (defn field-text [doc field]
