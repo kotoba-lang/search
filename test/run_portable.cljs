@@ -16,6 +16,7 @@
 ;; against the tree.
 (require '[cljs.test :as t]
          '[search.model-test]
+         '[search.model-cjk-test]
          '[search.origin-test]
          '[search.postings-test])
 
@@ -23,5 +24,6 @@
   (when-not (t/successful? m) (set! (.-exitCode js/process) 1)))
 
 (t/run-tests 'search.model-test
+              'search.model-cjk-test
               'search.origin-test
               'search.postings-test)
