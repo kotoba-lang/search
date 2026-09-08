@@ -11,7 +11,7 @@
   match (ADR-2608170600).
 
   Forbidden: hydrate-then-scan, Datalog over tokens, GraphSync selectors."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [search.model :as model]
             [search.postings :as postings]))
 
@@ -71,9 +71,9 @@
   a second index."
   [text terms]
   (let [s (str (or text ""))
-        lower (str/lower-case s)
+        lower (str/lower s)
         idx (some (fn [t]
-                    (let [i (str/index-of lower (str/lower-case (str t)))]
+                    (let [i (str/index-of lower (str/lower (str t)))]
                       (when i i)))
                   terms)
         start (if idx (max 0 (- idx 40)) 0)
@@ -197,7 +197,7 @@
     {:status 501
      :headers {"content-type" "application/json; charset=utf-8"}
      :body {:ok false :reason :forbidden-strategy :origin origin}}
-    (let [method (keyword (str/lower-case (name (or (:request-method req)
+    (let [method (keyword (str/lower (name (or (:request-method req)
                                                     (:method req)
                                                     :get))))
           path (or (:uri req) (:path req) "/")]

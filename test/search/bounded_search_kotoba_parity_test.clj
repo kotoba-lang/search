@@ -28,7 +28,7 @@
   does answer differently there. A refusal nobody can show a divergence for
   is decoration."
   (:require [clojure.java.shell :as shell]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [clojure.test :refer [deftest is testing]]
             [search.model :as model]))
 
@@ -196,7 +196,7 @@
             expected (nth (model/tokenize text) j)]
         (testing (str "text " i " token " j)
           (is (= expected tok) "nth token text differs from the oracle")
-          (is (= expected (str/lower-case (byte-slice text (i64 start) (i64 end))))
+          (is (= expected (str/lower (byte-slice text (i64 start) (i64 end))))
               "token-start/token-end do not bound that token in the original bytes"))))
     (doseq [[i oob-text oob-start neg-text] (rows "oob")]
       (testing (str "text " i " out of range")

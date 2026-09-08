@@ -1,5 +1,5 @@
 (ns search.model
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (def default-weights
   {:title 4
@@ -42,7 +42,7 @@
     (map #(subs run % (+ % 2)) (range (dec (count run))))))
 
 (defn tokenize [s]
-  (->> (str/lower-case (str s))
+  (->> (str/lower (str s))
        (re-seq #"[a-z0-9\u3040-\u30ff\u3400-\u9fff]+")
        (remove str/blank?)
        (mapcat (fn [token]

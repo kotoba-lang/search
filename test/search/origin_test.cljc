@@ -1,5 +1,5 @@
 (ns search.origin-test
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [clojure.test :refer [deftest is]]
             [search.model :as model]
             [search.origin :as o]
@@ -40,8 +40,8 @@
     (is (str/includes? (get-in r [:headers "content-type"]) "text/html"))
     (is (str/includes? (:body r) "name=\"q\""))
     (is (str/includes? (:body r) "<form"))
-    (is (not (str/includes? (str/lower-case (:body r)) "sparql")))
-    (is (not (str/includes? (str/lower-case (:body r)) "datalog")))
+    (is (not (str/includes? (str/lower (:body r)) "sparql")))
+    (is (not (str/includes? (str/lower (:body r)) "datalog")))
     (is (not (str/includes? (:body r) "textarea")))))
 
 (deftest empty-index-is-not-a-pass
@@ -103,7 +103,7 @@
 
 (deftest snippet-contains-the-query-term
   (let [h (first (:hits (:body (search "kotobase search origin"))))]
-    (is (str/includes? (str/lower-case (str (:title h) " " (:snippet h)))
+    (is (str/includes? (str/lower (str (:title h) " " (:snippet h)))
                        "kotobase"))))
 
 (deftest hydrate-then-scan-is-rejected
