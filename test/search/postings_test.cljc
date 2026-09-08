@@ -1,5 +1,5 @@
 (ns search.postings-test
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [clojure.test :refer [deftest is]]
             [search.model :as model]
             [search.postings :as p]))

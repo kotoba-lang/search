@@ -14,7 +14,7 @@
   iteration. The guest entries are built from the same case table the
   Clojure index is built from, in the same order."
   (:require [clojure.java.shell :as shell]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [clojure.test :refer [deftest is testing]]
             [search.validate :as validate]))
 
