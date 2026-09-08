@@ -2,8 +2,15 @@
  :deps {}
  :aliases
  {:kotoba {:replace-paths ["src"]
+           ;; amu 9092ee34 (origin/main, 2026-09-08) is an explicit FLOOR, and
+           ;; the reason lives here because a deps.edn :git/sha has no gate:
+           ;; the previous pin f6ee539e refuses string-code-point-at
+           ;; ("operation has no admitted lowering", measured 2026-09-08),
+           ;; which is the primitive src/search/bounded_search.kotoba's
+           ;; tokenizer walks. Do not move it backwards without re-measuring
+           ;; that kernel on both targets.
            :replace-deps {io.github.kotoba-lang/amu
-                          {:git/sha "f6ee539e23a967c25893361c4746746e623e8bd4"}}
+                          {:git/sha "9092ee34cc32b53ca998c473f7172e2f172abd8b"}}
            :main-opts ["-m" "kotoba.compiler.cli"]}
   :test {:extra-paths ["test"]
          :extra-deps {io.github.cognitect-labs/test-runner
