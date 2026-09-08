@@ -12,16 +12,29 @@
                    [:body :string]]]] canonical bounded typed-map for the
                    registry (record VALUE), plus closed keyword membership
                    for the field-weight vocabulary."}
- :excluded [:search.model/tokenize :search.model/score-doc :search.model/search
-            :search.model/term-count :search.validate]
- :exclusion-reason "tokenize is a re-seq character-class tokenizer over a-z0-9
-                    + Japanese Unicode ranges; score-doc/search/term-count
-                    build on it. These need a per-code-point classification
-                    string primitive kotoba-lang/compiler does not yet expose
-                    -- its string ABI is UTF-8 byte-offset based (string-
-                    substring / string-contains? / string-byte-length), with
-                    no code-point-at / regex op -- so the search machinery
-                    stays the CLJC oracle. Only the index structure is bounded."
+ :excluded [:search.model/search]
+ :exclusion-reason "search sorts and returns a collection of scored documents;
+                    this backend admits no readable collection return, so the
+                    ranking loop stays the CLJC oracle. Its per-document half
+                    (score-doc) is bounded -- see
+                    migration/bounded-search-machinery-v1.edn."
+ :exclusion-superseded
+ {:was [:search.model/tokenize :search.model/score-doc :search.model/term-count]
+  :claimed "These need a per-code-point classification string primitive
+            kotoba-lang/compiler does not yet expose -- its string ABI is
+            UTF-8 byte-offset based, with no code-point-at / regex op."
+  :verdict :stale-implementation-state
+  :measured "2026-09-08. string-code-point-at is an admitted language builtin
+             (kotoba-lang/kotoba-lang lang/pure-product-profile.edn
+             :string-ops) and lowers on both --target js-browser and
+             --target wasm32 at amu 9092ee34. The claim was TRUE of amu
+             f6ee539e, the pin this repo carried, which answers
+             \"operation has no admitted lowering\" -- an implementation
+             state, recorded without a date or a re-measurement condition and
+             then read as a property. Ported in
+             migration/bounded-search-machinery-v1.edn."
+  :note ":search.validate was ported separately and is no longer excluded
+         either (src/search/validate.kotoba)."}
  :compiler-findings
  {:document-star-names-are-reserved
   {:description "document-count/has-document? etc. collide with the built-in document-* typed-value operations (document-count is one), so the kernel uses doc-count/has-doc?/doc-title-or. Working as designed."}
