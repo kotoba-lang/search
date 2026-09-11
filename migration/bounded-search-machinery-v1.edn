@@ -22,9 +22,9 @@
      amu 9092ee34 (origin/main):
        same command -> :ok true, and the artifact RUNS: main() = 52
    deps.edn's :kotoba pin was moved to 9092ee34 with that reason beside it."}
- :legacy {:source "src/search/model.cljc" :status :retained-general-oracle}
+ :legacy {:source "src/search/model.cljk" :status :retained-general-oracle}
  :canonical {:kernel-and-conformance "src/search/bounded_search.kotoba"
-             :parity "test/search/bounded_search_kotoba_parity_test.clj"
+             :parity "test/search/bounded_search_kotoba_parity_test.cljk"
              :dual-backend-conformance "scripts/verify-bounded-search.mjs"}
  :domain
  {:functions [:token-count :token-start :token-end :token-text

@@ -1,6 +1,6 @@
 {:schema "kotoba-search-migration/v1"
  :profile :search/bounded-index-and-weights-v1
- :legacy {:source "src/search/model.cljc" :status :retained-general-oracle}
+ :legacy {:source "src/search/model.cljk" :status :retained-general-oracle}
  :canonical {:kernel-and-conformance "src/search/bounded_index.kotoba"}
  :domain
  {:functions [:make-doc :empty-index :add-document :doc-count :has-doc?
