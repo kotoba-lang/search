@@ -3,9 +3,9 @@
 // never a boolean -- a boolean cannot tell one regression apart from a build
 // that ran nothing, so this asserts the check COUNT too.
 //
-//   clojure -M:kotoba compile src/search/bounded_search.kotoba \
+//   kbb -M:kotoba compile src/search/bounded_search.kotoba \
 //     --target js-browser --output target/bs.mjs  --fuel 8192
-//   clojure -M:kotoba compile src/search/bounded_search.kotoba \
+//   kbb -M:kotoba compile src/search/bounded_search.kotoba \
 //     --target wasm32     --output target/bs.wasm --fuel 8192
 //   node scripts/verify-bounded-search.mjs target/bs.mjs target/bs.wasm \
 //     <amu>/runtime/browser-host.mjs

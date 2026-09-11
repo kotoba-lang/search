@@ -90,7 +90,7 @@
 (defn- compile-and-run-guest []
   (.mkdirs (java.io.File. (.getParent (java.io.File. artifact))))
   (let [{:keys [exit err out]}
-        (shell/sh "clojure" "-M:kotoba" "compile" kotoba-path
+        (shell/sh "kbb" "-M:kotoba" "compile" kotoba-path
                   "--target" "js-browser" "--output" artifact :dir repo-dir)]
     (when-not (zero? exit)
       (throw (ex-info "guest compile failed" {:exit exit :err err :out out}))))

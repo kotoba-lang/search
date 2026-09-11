@@ -16,7 +16,7 @@ The Pages UI is local to kotoba-lang and does not redirect to external hosts.
 ## Test
 
 ```bash
-clojure -M:test
+kbb -M:test
 ```
 
 ## Kotoba bounded profile
@@ -42,9 +42,9 @@ from a build that ran nothing. Both backends answer `52`.
 See [migration/bounded-search-machinery-v1.edn](migration/bounded-search-machinery-v1.edn).
 
 ```bash
-clojure -M:kotoba compile src/search/bounded_search.kotoba \
+kbb -M:kotoba compile src/search/bounded_search.kotoba \
   --target js-browser --output target/bs.mjs  --fuel 8192
-clojure -M:kotoba compile src/search/bounded_search.kotoba \
+kbb -M:kotoba compile src/search/bounded_search.kotoba \
   --target wasm32     --output target/bs.wasm --fuel 8192
 node scripts/verify-bounded-search.mjs target/bs.mjs target/bs.wasm \
   <amu-checkout>/runtime/browser-host.mjs

@@ -152,7 +152,7 @@
 (defn- compile-guest! []
   (.mkdirs (java.io.File. (.getParent (java.io.File. artifact))))
   (let [{:keys [exit err out]}
-        (shell/sh "clojure" "-M:kotoba" "compile" kotoba-path
+        (shell/sh "kbb" "-M:kotoba" "compile" kotoba-path
                   "--target" "js-browser" "--output" artifact
                   "--fuel" declared-fuel :dir repo-dir)]
     (when-not (zero? exit)
