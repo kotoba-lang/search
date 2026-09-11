@@ -35,7 +35,7 @@ tokenizer (a-z0-9 plus the Japanese ranges `\u3040-\u30ff` and
 `\u3400-\u9fff`, with each CJK run replaced by its overlapping bigrams),
 `term-count`, and `score-doc` over the closed weight table. It is
 parity-tested against the `.cljc` oracle
-([test/search/bounded_search_kotoba_parity_test.clj](test/search/bounded_search_kotoba_parity_test.clj))
+([test/search/bounded_search_kotoba_parity_test.cljk](test/search/bounded_search_kotoba_parity_test.cljk))
 and has its own self-check, which returns **failures × 1000 + checks-run** —
 a count, never a boolean, because a boolean cannot tell one regression apart
 from a build that ran nothing. Both backends answer `52`.
