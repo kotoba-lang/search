@@ -15,7 +15,7 @@
    The claim was true of the amu the record was written against and false of
    amu main, and nothing re-measured it. Both halves measured 2026-09-08:
      amu f6ee539e (the pin deps.edn carried):
-       clojure -M:kotoba compile src/search/bounded_search.kotoba \\
+       kbb -M:kotoba compile src/search/bounded_search.kotoba \\
          --target js-browser --output /tmp/x.mjs --fuel 8192
        -> :kotoba/source-rejected \"operation has no admitted lowering\"
           at the (string-code-point-at text i) in step-boundary
