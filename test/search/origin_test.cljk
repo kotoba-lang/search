@@ -1,6 +1,6 @@
 (ns search.origin-test
   (:require [kotoba.lang.text :as str]
-            [clojure.test :refer [deftest is]]
+            [kotoba.test :refer [deftest is]]
             [search.model :as model]
             [search.origin :as o]
             [search.postings :as p]))

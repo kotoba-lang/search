@@ -29,7 +29,7 @@
   is decoration."
   (:require [clojure.java.shell :as shell]
             [kotoba.lang.text :as str]
-            [clojure.test :refer [deftest is testing]]
+            [kotoba.test :refer [deftest is testing]]
             [search.model :as model]))
 
 (def ^:private repo-dir (System/getProperty "user.dir"))
