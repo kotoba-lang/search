@@ -3,7 +3,7 @@
   token ('欧州連合理事会') never intersects a short query ('理事会') under
   posting-AND. Overlapping bigrams are the minimal lossless segmentation
   that keeps retrieve O(df)."
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [search.model :as model]
             [search.postings :as postings]))
 
