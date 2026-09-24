@@ -13,7 +13,7 @@
   (map key + doc) instead of a map, because the guest has no map-entry
   iteration. The guest entries are built from the same case table the
   Clojure index is built from, in the same order."
-  (:require [clojure.java.shell :as shell]
+  (:require [kotoba.io :as kio] [kotoba.process :as shell]
             [kotoba.lang.text :as str]
             [kotoba.test :refer [deftest is testing]]
             [search.validate :as validate]))
@@ -88,7 +88,7 @@
                       cases))))
 
 (defn- compile-and-run-guest []
-  (.mkdirs (java.io.File. (.getParent (java.io.File. artifact))))
+  (kio/mkdirs (kio/file (kio/parent (kio/file artifact))))
   (let [{:keys [exit err out]}
         (shell/sh "kbb" "-M:kotoba" "compile" kotoba-path
                   "--target" "js-browser" "--output" artifact :dir repo-dir)]
